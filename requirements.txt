@@ -1,0 +1,7 @@
+# 麦麦掉线通知插件运行时依赖
+#
+# WebSocket 探测（probe_type = "ws"）需要 aiohttp；
+# napcat / snowluma 适配器自身也依赖 aiohttp，MaiBot 运行环境通常已安装。
+# 仅使用 http / send 探测方式时本依赖非必需，但保留以确保 ws 探测可用。
+
+aiohttp>=3.8.0

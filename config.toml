@@ -1,0 +1,52 @@
+# 麦麦掉线通知插件配置
+#
+# 小白快速上手只需两步：
+#   1. [notify] 里填上你的 Server 酱 SendKey
+#   2. [adapters] 里把要监控的适配器 host / port / token 改成你自己的，再把 enabled 改成 true
+#
+# ── 关于 host / port / token（⚠️ 因人而异，必改）──────────────────────
+# 打开你 napcat-adapter / snowluma-adapter 的 config.toml，把里面的地址、端口、
+# 令牌原样抄到下面对应适配器即可：
+#   本插件字段   napcat-adapter 配置字段      snowluma-adapter 配置字段
+#   host        napcat_server.host           luma_client.server
+#   port        napcat_server.port           luma_client.port
+#   token       napcat_server.token          luma_client.token
+# 本机部署 host 填 127.0.0.1；适配器在别的机器就填那台机器的 IP。
+# napcat 常见端口 7998，snowluma 常见 7988，但很多人会改，以你的配置为准。
+# token 没开鉴权就留空。
+
+[plugin]
+enabled = true                  # 总开关
+config_version = "1.1.0"        # 配置结构版本号（勿改）
+check_interval_sec = 60         # 两次探测间隔（秒）
+fail_threshold = 2              # 连续失败多少次才判定掉线并通知
+notify_cooldown_sec = 300       # 同一适配器重复通知最小间隔（秒）
+
+[notify]
+serverchan_sendkey = ""         # ← 填你的 Server 酱 Turbo SendKey（sct 开头），必填
+serverchan_api_base = "https://sctapi.ftqq.com"  # 一般无需修改
+channel = ""                    # 推送通道，留空走默认通道
+notify_recovery = true          # 适配器恢复上线时是否也推送通知
+bot_name = "麦麦"               # 通知文案中的机器人名称
+
+# ── 适配器监控列表 ─────────────────────────────────────────────
+# 每条 [[adapters.adapters]] 是一个被监控的适配器。
+# 只需改 host / port / token 三个值，改完把 enabled 改成 true 即可。
+# 探测方式固定为 WebSocket 查询在线状态，不会向任何群 / 好友发消息。
+[adapters]
+
+# napcat 适配器（默认端口 7998）
+[[adapters.adapters]]
+name = "napcat"
+enabled = false                 # 改成 true 启用监控
+host = "127.0.0.1"              # ← 改成你的 napcat 机器 IP（本机就填 127.0.0.1）
+port = 7998                     # ← 改成你的 napcat 实际端口
+token = ""                      # 与 napcat-adapter 的 token 一致；未开鉴权留空
+
+# snowluma 适配器（默认端口 7988）
+[[adapters.adapters]]
+name = "snowluma"
+enabled = false                 # 改成 true 启用监控
+host = "127.0.0.1"              # ← 改成你的 snowluma 机器 IP（本机就填 127.0.0.1）
+port = 7988                     # ← 改成你的 snowluma 实际端口
+token = ""                      # 与 snowluma-adapter 的 token 一致；未开鉴权留空
