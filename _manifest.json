@@ -5,7 +5,7 @@
   "version": "1.1.0",
   "description": "监控 MaiBot 的 napcat / snowluma 适配器是否在线，掉线时通过 Server 酱 Webhook 向号主手机推送通知，恢复上线时可选推送恢复通知。",
   "author": {
-    "name": "麦麦掉线通知",
+    "name": "octmicy",
     "url": "https://github.com/Mai-with-u"
   },
   "license": "MIT",
